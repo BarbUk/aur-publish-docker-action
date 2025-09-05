@@ -33,20 +33,19 @@ cd "$PACKAGE_NAME"
 echo "------------- BUILDING PKG $PACKAGE_NAME ----------------"
 
 sed -i "s/pkgver=.*$/pkgver=$NEW_RELEASE/" PKGBUILD
-sed -i "s/sha256sums=.*$/$(makepkg -g 2>/dev/null)/" PKGBUILD
+updpkgsums
 
 # Test build
-makepkg -c
+makepkg --syncdeps --clean
 
 # Update srcinfo
 makepkg --printsrcinfo > .SRCINFO
-
 
 echo "------------- BUILD DONE ----------------"
 
 # Update aur
 git add PKGBUILD .SRCINFO
-git commit --allow-empty  -m "Update to $NEW_RELEASE"
+git commit --allow-empty -m "Update to $NEW_RELEASE"
 git push
 
 echo "------------- PUBLISH DONE ----------------"
