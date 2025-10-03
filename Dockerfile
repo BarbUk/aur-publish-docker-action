@@ -2,9 +2,8 @@ FROM archlinux/archlinux:base
 
 RUN pacman -Sy && \
     pacman -Sy --noconfirm openssh \
-      git fakeroot binutils gcc awk binutils xz \
-      libarchive bzip2 coreutils file findutils \
-      gettext grep gzip sed ncurses pacman-contrib zstd
+      git base-devel pacman-contrib && \
+      pacman -Scc --noconfirm
 
 RUN useradd -ms /bin/bash builder && \
     mkdir -p /home/builder/.ssh && \
