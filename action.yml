@@ -1,7 +1,7 @@
 # action.yml
-name: 'AUR publish'
-description: 'Publish an AUR package'
-author: BarbUk
+name: 'AUR package publisher'
+description: 'Publish an AUR package update for your tagged releases'
+author: BarbUk,guumaster
 branding:
   color: green
   icon: upload
