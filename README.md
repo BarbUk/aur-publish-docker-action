@@ -42,8 +42,8 @@ jobs:
   aur-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Publish AUR package
-        uses: BarbUk/aur-publish-docker-action@v1
+      - name: AUR package publisher
+        uses: BarbUk/aur-publish-docker-action@v1.0.1
         with:
           package_name: my-awesome-package
           commit_username: 'Github Action Bot'
