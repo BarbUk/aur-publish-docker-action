@@ -31,6 +31,7 @@ cd "$PACKAGE_NAME"
 echo "------------- BUILDING PKG $PACKAGE_NAME ----------------"
 
 sed -i "s/pkgver=.*$/pkgver=$NEW_RELEASE/" PKGBUILD
+sed -i "s/pkgrel=.*$/pkgrel=1/" PKGBUILD
 updpkgsums
 
 # Test build
