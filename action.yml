@@ -1,7 +1,7 @@
 # action.yml
 name: 'AUR publish docker'
 description: 'Publish an AUR package'
-author: guumaster
+author: BarbUk
 branding:
   color: green
   icon: upload

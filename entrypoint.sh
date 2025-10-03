@@ -14,9 +14,7 @@ export HOME=/home/builder
 echo "---------------- AUR Package version $PACKAGE_NAME/$NEW_RELEASE ----------------"
 
 ssh-keyscan -t ed25519 aur.archlinux.org >> $HOME/.ssh/known_hosts
-
 echo -e "${SSH_PRIVATE_KEY//_/\\n}" > $HOME/.ssh/aur
-
 chmod 600 $HOME/.ssh/aur*
 
 git config --global user.name "$COMMIT_USERNAME"
@@ -36,7 +34,8 @@ sed -i "s/pkgver=.*$/pkgver=$NEW_RELEASE/" PKGBUILD
 updpkgsums
 
 # Test build
-makepkg --syncdeps --clean
+makepkg --syncdeps --noconfirm
+makepkg --nobuild --clean
 
 # Update srcinfo
 makepkg --printsrcinfo > .SRCINFO
