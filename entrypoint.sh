@@ -35,8 +35,8 @@ sed -i "s/pkgrel=.*$/pkgrel=1/" PKGBUILD
 updpkgsums
 
 # Test build
-makepkg --syncdeps --noconfirm
-makepkg --nobuild --clean
+sudo makepkg --syncdeps --noextract --nobuild --noconfirm
+makepkg --cleanbuild --clean
 
 # Update srcinfo
 makepkg --printsrcinfo > .SRCINFO
