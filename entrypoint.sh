@@ -40,7 +40,7 @@ makepkg --syncdeps --noextract --nobuild --noconfirm
 makepkg --cleanbuild --clean
 
 # Install package
-sudo pacman -U *.pkg.tar.zst
+sudo pacman --noconfirm -U ./*.pkg.tar.zst
 
 # Update srcinfo
 makepkg --printsrcinfo > .SRCINFO
