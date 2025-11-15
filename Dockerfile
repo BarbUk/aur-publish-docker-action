@@ -1,7 +1,7 @@
-FROM archlinux/archlinux:base
+FROM archlinux/archlinux:base-devel
 
-RUN pacman -Syu --noconfirm openssh \
-      git pcre2 base-devel pacman-contrib && \
+RUN pacman -Sy --noconfirm openssh \
+      git pcre2 pacman-contrib && \
       pacman -Scc --noconfirm
 
 RUN useradd -ms /bin/bash builder --groups alpm && \
