@@ -11,8 +11,6 @@ NEW_RELEASE=${GITHUB_REF##*/v}
 
 export HOME=/home/builder
 
-echo "---------------- AUR Package version $PACKAGE_NAME/$NEW_RELEASE ----------------"
-
 ssh-keyscan -t ed25519 aur.archlinux.org >> $HOME/.ssh/known_hosts
 echo -e "${SSH_PRIVATE_KEY//_/\\n}" > $HOME/.ssh/aur
 chmod 600 $HOME/.ssh/aur*
@@ -22,13 +20,9 @@ git config --global user.email "$COMMIT_EMAIL"
 
 REPO_URL="ssh://aur@aur.archlinux.org/${PACKAGE_NAME}.git"
 
-echo "---------------- $REPO_URL ----------------"
-
 cd /tmp
 git clone "$REPO_URL"
 cd "$PACKAGE_NAME"
-
-echo "------------- BUILDING PKG $PACKAGE_NAME ----------------"
 
 sed -i "s/pkgver=.*$/pkgver=$NEW_RELEASE/" PKGBUILD
 sed -i "s/pkgrel=.*$/pkgrel=1/" PKGBUILD
@@ -36,20 +30,13 @@ updpkgsums
 
 # Install deps
 makepkg --syncdeps --noextract --nobuild --noconfirm
-# Build package
-makepkg --cleanbuild --clean
-
-# Install package
-sudo pacman --noconfirm -U ./*.pkg.tar.zst
+# Build package and install it
+makepkg --cleanbuild --clean --install --noconfirm
 
 # Update srcinfo
 makepkg --printsrcinfo > .SRCINFO
-
-echo "------------- BUILD DONE ----------------"
 
 # Update aur
 git add PKGBUILD .SRCINFO
 git commit --allow-empty -m "Update to $NEW_RELEASE"
 git push
-
-echo "------------- PUBLISH DONE ----------------"
