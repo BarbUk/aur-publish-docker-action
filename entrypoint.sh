@@ -34,9 +34,13 @@ sed -i "s/pkgver=.*$/pkgver=$NEW_RELEASE/" PKGBUILD
 sed -i "s/pkgrel=.*$/pkgrel=1/" PKGBUILD
 updpkgsums
 
-# Test build
-sudo makepkg --syncdeps --noextract --nobuild --noconfirm
+# Install deps
+makepkg --syncdeps --noextract --nobuild --noconfirm
+# Build package
 makepkg --cleanbuild --clean
+
+# Install package
+sudo pacman -U *.pkg.tar.zst
 
 # Update srcinfo
 makepkg --printsrcinfo > .SRCINFO

@@ -1,13 +1,14 @@
 FROM archlinux/archlinux:base
 
-RUN pacman -Sy && \
-    pacman -Sy --noconfirm openssh \
-      git base-devel pacman-contrib && \
+RUN pacman -Syu --noconfirm openssh \
+      git pcre2 base-devel pacman-contrib && \
       pacman -Scc --noconfirm
 
-RUN useradd -ms /bin/bash builder && \
+RUN useradd -ms /bin/bash builder --groups alpm && \
     mkdir -p /home/builder/.ssh && \
-    touch /home/builder/.ssh/known_hosts
+    touch /home/builder/.ssh/known_hosts && \
+    echo 'builder ALL = NOPASSWD: ALL' > /etc/sudoers.d/builder_pacman && \
+    chmod 400 /etc/sudoers.d/builder_pacman
 
 COPY ssh_config /home/builder/.ssh/config
 
