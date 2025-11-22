@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AUR package publisher
-        uses: BarbUk/aur-publish-docker-action@v1.0.1
+        uses: BarbUk/aur-publish-docker-action@df7d13e612b5ac8a25a039a301fcdeafce200554
         with:
           package_name: my-awesome-package
           commit_username: 'Github Action Bot'
