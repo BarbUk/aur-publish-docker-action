@@ -1,4 +1,4 @@
-FROM archlinux/archlinux:base-devel
+FROM archlinux/archlinux:base-devel-20251019.0.436919
 
 RUN pacman -Sy --noconfirm openssh \
       git pcre2 pacman-contrib && \
